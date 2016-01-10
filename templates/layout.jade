@@ -1,0 +1,15 @@
+doctype html
+html(lang="ru")
+  head
+    title!= title
+    link(rel='stylesheet', href='/css/bootstrap.min.css', type='text/css')
+  body
+    .row
+      .col-lg-2
+      .col-lg-8
+        form(method='post', enctype='multipart/form-data')
+          .form-group
+            input(type='file', name='avatar', multiple='multiple')
+          .form-group
+            button.btn.btn-primary(type="submit") Отправить
+      .col-lg-2

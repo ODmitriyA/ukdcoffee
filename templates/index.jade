@@ -1,0 +1,95 @@
+doctype html
+html(lang="ru")
+  head
+    title!= title
+  body
+    p
+      script.
+        // <![CDATA[
+        var st=document.getElementById("tdLeft");
+        var cont=document.getElementById("content");
+        var tit=document.querySelector(".title");
+        st.hidden=true;
+        cont.style.margin="0";
+        tit.style.textAlign = "justify";
+        // ]]
+    each v in parsed
+      if v.type == 'paragraph'
+        p
+          span(style="font-size: 14pt;")
+            &nbsp;&nbsp;&nbsp;&nbsp;#{v.data}
+      else if v.type == 'date'
+        -var date_now = v.date_now
+      else
+        -var width = false
+        if v.data.length >= 2
+          -width = 300
+        table(style="margin-left: auto; margin-right: auto;")
+          tr
+            each num in v.data
+              td
+                span(style="font-size: 14pt;")
+                  img(
+                    src="files/img/#{date_now}/SMALL#{num}.JPG"
+                    width="#{width}"
+                  )
+    table
+      tr
+        td
+          p
+            span(style="font-size: 14pt")
+              a(href="http://vkontakte.ru/share.php?url=http://ukdemidov.ru/novosti/problemyi_reshaem_vmeste", target="_blank")
+                img(src="files/img/vk32.png")
+      tr
+        td
+          p
+            span(style="font-size: 14pt")
+              a(
+                href="https://metrika.yandex.ru/stat/?id=24665882&from=informer"
+                target="_blank"
+                rel="nofollow"
+              )
+                img(
+                  style="width: 88px; height: 31px; border: 0;"
+                  title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
+                  src="http://bs.yandex.ru/informer/24665882/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+                  alt="Яндекс.Метрика"
+                )
+        script.
+          // <![CDATA[
+          (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+              try {
+                w.yaCounter24665882 = new Ya.Metrika({id:24665882,
+                            clickmap:true,
+                            trackLinks:true,
+                            accurateTrackBounce:true});
+              } catch(e) { }
+          });
+          var n = d.getElementsByTagName("script")[0],
+              s = d.createElement("script"),
+              f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+          })(document, window, "yandex_metrika_callbacks");
+          // ]]>
+        noscript
+          span(
+            style="font-size: 14pt;"
+            )
+            div
+              img(
+                src="//mc.yandex.ru/watch/24665882"
+                style="position:absolute; left:-9999px;"
+                alt=""
+              )
+        span(style="font-size: 14pt;")
+          <!-- /Yandex.Metrika counter -->
+
+
+            

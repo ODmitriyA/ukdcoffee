@@ -4,6 +4,7 @@ mammoth = require 'mammoth'
 ftp =     require 'ftp'
 async =   require 'async'
 config = require '../config'
+size = require 'jpeg-size'
 
 Template = {
 
@@ -46,21 +47,21 @@ Template = {
   resizeDir: (cb) ->
     files = Template.onlyNeeded 'tmp/'
     async.eachSeries files, (file, callback) ->
-      im.identify "tmp/#{file}", (err, feauters) ->
-        if err then cb err
-        if feauters.width > feauters.height
-          width = 600
-        else
-          width = 300
-        console.log "identify - #{file}"
-        im.resize {
-          srcPath: "tmp/#{file}"
-          dstPath: "tmp/small#{file}"
-          width: width
-          }, (err) ->
-            if err then callback err
-            console.log "converted - #{file}"
-            callback()
+      buf = fs.readFileSync "tmp/#{file}"
+      feauters = size buf
+      if feauters.width > feauters.height
+        width = 600
+      else
+        width = 300
+      console.log "identify - #{file}"
+      im.resize {
+        srcPath: "tmp/#{file}"
+        dstPath: "tmp/small#{file}"
+        width: width
+        }, (err) ->
+          if err then callback err
+          console.log "converted - #{file}"
+          callback()
     ,
     (err) ->
       if err then cb(err)

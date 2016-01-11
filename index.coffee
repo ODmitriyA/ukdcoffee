@@ -32,7 +32,7 @@ app.post '/', upload.single('avatar'), (req, res) ->
       res.render 'index', {parsed: parsed}
 
 server = app.listen 3001, ->
-  host = server.address().
+  host = server.address().address
   port = server.address().port
 
   console.log "Example app listening on http://#{host}:#{port}"

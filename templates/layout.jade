@@ -11,5 +11,12 @@ html(lang="ru")
           .form-group
             input(type='file', name='avatar', multiple='multiple')
           .form-group
-            button.btn.btn-primary(type="submit") Отправить
+            table
+              tr
+                td
+                  input(type='checkbox', name='sendFtp', checked)
+                td    
+                  .p Отправить по FTP
+          .form-group
+            button.btn.btn-primary(type="submit")
       .col-lg-2

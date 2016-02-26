@@ -1,11 +1,13 @@
 (function() {
-  var app, express, fs, multer, sending, server, storage, t, upload, zip;
+  var app, bodyParser, express, fs, multer, sending, server, storage, t, upload, zip;
 
   express = require('express');
 
   app = express();
 
   zip = require('extract-zip');
+
+  bodyParser = require('body-parser');
 
   t = require('./main');
 
@@ -39,6 +41,12 @@
 
   app.use(express["static"]('bootstrap'));
 
+  app.use(bodyParser.json());
+
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+
   app.get('/', function(req, res) {
     fs.readdir('./tmp', function(err, files) {
       var file, _i, _len, _results;
@@ -68,7 +76,9 @@
         console.log(err);
       }
       t.Template.resizeDir(function() {
-        return sending();
+        if (req.body.sendFtp) {
+          return sending();
+        }
       });
       return t.Template.parseDocx("tmp/", "2.docx", function(parsed) {
         return res.render('index', {

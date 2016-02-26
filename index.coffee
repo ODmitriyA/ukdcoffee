@@ -3,6 +3,7 @@ app = express()
 zip = require 'extract-zip'
 t = require './main'
 multer = require 'multer'
+fs = require 'fs'
 
 sending = ->
   console.log 'sending...'
@@ -21,6 +22,11 @@ app.set 'view engine', 'jade'
 app.use express.static 'bootstrap'
 
 app.get '/', (req, res) ->
+  fs.readdir './tmp', (err, files) ->
+    for file in files
+      do(file) ->
+        fs.unlink 'tmp/' + file, (err) ->
+          if err then console.log err
   res.render 'layout', {title: 'Hello'}
 
 app.post '/', upload.single('avatar'), (req, res) ->

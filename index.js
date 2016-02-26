@@ -1,5 +1,5 @@
 (function() {
-  var app, express, multer, sending, server, storage, t, upload, zip;
+  var app, express, fs, multer, sending, server, storage, t, upload, zip;
 
   express = require('express');
 
@@ -10,6 +10,8 @@
   t = require('./main');
 
   multer = require('multer');
+
+  fs = require('fs');
 
   sending = function() {
     var files;
@@ -38,6 +40,21 @@
   app.use(express["static"]('bootstrap'));
 
   app.get('/', function(req, res) {
+    fs.readdir('./tmp', function(err, files) {
+      var file, _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = files.length; _i < _len; _i++) {
+        file = files[_i];
+        _results.push((function(file) {
+          return fs.unlink('tmp/' + file, function(err) {
+            if (err) {
+              return console.log(err);
+            }
+          });
+        })(file));
+      }
+      return _results;
+    });
     return res.render('layout', {
       title: 'Hello'
     });

@@ -6,8 +6,8 @@ multer = require 'multer'
 
 sending = ->
   console.log 'sending...'
-#  files = t.Template.onlyNeeded 'tmp/', true
-#  t.Template.sendToUkd files
+  files = t.Template.onlyNeeded 'tmp/', true
+  t.Template.sendToUkd files
 
 storage = multer.diskStorage {
   destination: (req, file, cb) ->

@@ -3,8 +3,8 @@ fs =      require 'fs'
 mammoth = require 'mammoth'
 ftp =     require 'ftp'
 async =   require 'async'
-config = require '../config'
-size = require 'jpeg-size'
+config =  require '../config'
+size =    require 'jpeg-size'
 
 Template = {
 
@@ -73,7 +73,7 @@ Template = {
     putFtp = (file) ->
       c.put "tmp/#{file}",
         "#{dir}#{Template.dateNow()}/#{file.toUpperCase()}", (err) ->
-        if err then console.log err
+          if err then console.log err
 
     c = new ftp()
     c.on 'ready', ->
